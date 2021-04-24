@@ -1,4 +1,10 @@
+import FactoryMethodPattern.Item;
+import FactoryMethodPattern.ItemFactory;
+import FactoryMethodPattern.ItemFactoryImp;
+
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VendingMachineGUI {
     private JPanel mainFrame;
@@ -34,6 +40,21 @@ public class VendingMachineGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+        ItemFactory factory = new ItemFactoryImp();
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(factory.getItemByName("Soda"));
+        items.add(factory.getItemByName("Salad"));
+        items.add(factory.getItemByName("Candy"));
+        items.add(factory.getItemByName("Pork"));
+        for (Item i: items) {
+            System.out.print("Name: "+ i.getName() + "\tCost: " + i.getPrice());
+            String[] allergens = i.getAllergenList();
+            for(int x = 0, size = allergens.length; x !=size; x++){
+                System.out.print(allergens[x]+" ");
+            }
+            System.out.println();
+        }
     }
 
     private void createUIComponents() {
