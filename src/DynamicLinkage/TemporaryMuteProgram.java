@@ -1,5 +1,7 @@
 package DynamicLinkage;
 
+import FactoryMethodPattern.Items.Salad;
+
 public class TemporaryMuteProgram extends AbsVMProgram{
 
     @Override
@@ -9,6 +11,8 @@ public class TemporaryMuteProgram extends AbsVMProgram{
         //or are we just going to have it so if someone presses the mute button,
         //and the program is already muted, we unmute?
         //not a big deal, but something to keep in mind.
+
+        System.out.println("muted");
     }
 
     @Override

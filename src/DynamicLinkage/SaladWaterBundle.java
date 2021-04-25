@@ -5,7 +5,7 @@ import Sources.VendingMachine;
 
 public class SaladWaterBundle extends BundleProgram{
 
-    SaladWaterBundle()
+    public SaladWaterBundle()
     {
     }
 
