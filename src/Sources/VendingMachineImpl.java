@@ -12,7 +12,7 @@ public class VendingMachineImpl implements VendingMachine {
     private Item currentSelection;
     private double balance;
     private boolean isSilent;
-    private static VendingMachine currentInstance = new VendingMachineImpl(); //
+    private static VendingMachine currentInstance = new VendingMachineImpl(); //*****************
 
     VendingMachineImpl() {
         //idk

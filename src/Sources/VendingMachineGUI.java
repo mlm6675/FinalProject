@@ -39,6 +39,8 @@ public class VendingMachineGUI {
 
     }
 
+    private static void foo(int i) {
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("Vending Machine :)");
         frame.setContentPane(new VendingMachineGUI().mainFrame);
@@ -51,6 +53,10 @@ public class VendingMachineGUI {
 
         //Filter Pattern Test
         filterPatternTest();
+
+
+
+        foo(3);
     }
 
     private static void filterPatternTest() {
@@ -91,4 +97,5 @@ public class VendingMachineGUI {
     private void createUIComponents() {
         machineWindow = new JLabel(new ImageIcon("vendingWindow.png"));
     }
+
 }
