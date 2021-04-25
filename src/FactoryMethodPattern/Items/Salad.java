@@ -1,6 +1,8 @@
 package FactoryMethodPattern.Items;
 
 import FactoryMethodPattern.Item;
+import FilterPattern.Filters.LactoseFilter;
+import FilterPattern.Filters.SeafoodFilter;
 
 public class Salad implements Item {
 
@@ -15,7 +17,10 @@ public class Salad implements Item {
     }
 
     @Override
-    public String[] getAllergenList() {
-        return new String[0];
+    public String[] getAllergenList(){
+        String[] allergens = new String[2];
+        allergens[0] = LactoseFilter.allergen;
+        allergens[1] = SeafoodFilter.allergen;
+        return allergens;
     }
 }

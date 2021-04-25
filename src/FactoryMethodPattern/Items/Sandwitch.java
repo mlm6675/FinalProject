@@ -1,6 +1,10 @@
 package FactoryMethodPattern.Items;
 
 import FactoryMethodPattern.Item;
+import FilterPattern.Filters.EggFilter;
+import FilterPattern.Filters.LactoseFilter;
+import FilterPattern.Filters.SeafoodFilter;
+import FilterPattern.Filters.WheatFilter;
 
 public class Sandwitch implements Item {
     @Override
@@ -15,6 +19,10 @@ public class Sandwitch implements Item {
 
     @Override
     public String[] getAllergenList() {
-        return new String[0];
+        String[] allergens = new String[3];
+        allergens[0] = SeafoodFilter.allergen;
+        allergens[1] = EggFilter.allergen;
+        allergens[2] = WheatFilter.allergen;
+        return allergens;
     }
 }

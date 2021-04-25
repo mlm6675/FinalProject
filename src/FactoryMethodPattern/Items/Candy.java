@@ -1,6 +1,7 @@
 package FactoryMethodPattern.Items;
 
 import FactoryMethodPattern.Item;
+import FilterPattern.Filters.NutFilter;
 
 public class Candy implements Item {
 
@@ -15,7 +16,9 @@ public class Candy implements Item {
     }
 
     @Override
-    public String[] getAllergenList() {
-        return new String[0];
+    public String[] getAllergenList(){
+        String[] allergens = new String[1];
+        allergens[0] = NutFilter.allergen;
+        return allergens;
     }
 }
