@@ -2,14 +2,14 @@ package State;
 import Sources.*;
 
 public abstract class State {
-    public final int digitPressEvent = 1;
-    public final int programmableButtonPressEvent = 2;
-    public final int confirmPressEvent = 3;
-    public final int cancelPressEvent = 4;
-    public final int arrowUpEvent = 5;
-    public final int arrowDownEvent = 6;
-    public final int moneyEnteredEvent = 7;
-    public final int filterPressEvent = 8;
+    public static final int digitPressEvent = 1;
+    public static final int programmableButtonPressEvent = 2;
+    public static final int confirmPressEvent = 3;
+    public static final int cancelPressEvent = 4;
+    public static final int arrowUpEvent = 5;
+    public static final int arrowDownEvent = 6;
+    public static final int moneyEnteredEvent = 7;
+    public static final int filterPressEvent = 8;
     protected VendingMachine vendingMachine;
 
 

@@ -34,13 +34,13 @@ public class SelectionValidation extends State{
         switch(event)
         {
             case moneyEnteredEvent, digitPressEvent, programmableButtonPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
-                return this;
+                return getInstance();
             case confirmPressEvent:
                 //somehow return this instance with the filter attached
-                return ItemSelection.getInstance();
+                return Idle.getInstance();
             case cancelPressEvent:
                 //disregard the changes from the filter
-                return Idle.getInstance();
+                return ItemSelection.getInstance();
             default:
                 System.out.println("unexpected state encountered. returning to idle state.");
                 return Idle.getInstance();
@@ -49,6 +49,7 @@ public class SelectionValidation extends State{
 
     public static State getInstance()
     {
+        instance.enter();
         return instance;
     }
 

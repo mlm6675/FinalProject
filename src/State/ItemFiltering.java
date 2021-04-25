@@ -44,7 +44,7 @@ public class ItemFiltering extends State {
         switch(event)
         {
             case moneyEnteredEvent, digitPressEvent, programmableButtonPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
-                return this;
+                return getInstance();
             case confirmPressEvent:
                 //somehow return this instance with the filter attached
                 return ItemSelection.getInstance();
@@ -59,6 +59,7 @@ public class ItemFiltering extends State {
 
     public static State getInstance()
     {
+        instance.enter();
         return instance;
     }
     protected void enter()

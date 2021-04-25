@@ -12,7 +12,7 @@ public class VendingMachineImpl implements VendingMachine {
     private Item currentSelection;
     private double balance;
     private boolean isSilent;
-    private static VendingMachine currentInstance = new VendingMachineImpl(); //*****************
+    private static VendingMachineImpl currentInstance = new VendingMachineImpl(); //*****************
 
     VendingMachineImpl() {
         //idk
@@ -81,7 +81,7 @@ public class VendingMachineImpl implements VendingMachine {
         program.run();
 
 
-        System.out.println("\nNullProgram test");
+        System.out.println("\nNullProgram test\n\n\n\n\n");
         program = new NullProgram();
         program.setEnvironment(currentInstance);
         program.run();
@@ -91,6 +91,18 @@ public class VendingMachineImpl implements VendingMachine {
         //would not be difficult to implement a factory for this but i'm not sure if it's necessary
         //either way, we have the external programs controlling this implementation of the vending machine
         //
+        System.out.println("STATE TESTING: \n");
+
+        currentInstance.currentState = Idle.getInstance();
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.moneyEnteredEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.confirmPressEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.confirmPressEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.moneyEnteredEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.filterPressEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.digitPressEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.cancelPressEvent);
+        currentInstance.currentState = currentInstance.currentState.processEvent(State.cancelPressEvent);
+
     }
 
 }

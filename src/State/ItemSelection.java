@@ -38,7 +38,7 @@ public class ItemSelection extends State{
         switch(event)
         {
             case digitPressEvent, moneyEnteredEvent, programmableButtonPressEvent, arrowUpEvent, arrowDownEvent:
-                return this;
+                return getInstance();
             case cancelPressEvent:
                 return Idle.getInstance();
             case confirmPressEvent:
@@ -54,6 +54,7 @@ public class ItemSelection extends State{
 
     public static State getInstance()
     {
+        instance.enter();
         return instance;
     }
 

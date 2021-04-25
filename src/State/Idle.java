@@ -6,6 +6,7 @@ public class Idle extends State {
 
     private Idle(VendingMachine vm) { super(vm); }
     public static State getInstance(){
+        instance.enter();
         return instance;
     }
 
@@ -31,7 +32,7 @@ public class Idle extends State {
         switch(event)
         {
             case digitPressEvent, programmableButtonPressEvent, confirmPressEvent, cancelPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
-                return this;
+                return getInstance();
             case moneyEnteredEvent:
                 return ItemSelection.getInstance();
             default:
