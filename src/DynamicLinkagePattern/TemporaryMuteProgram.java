@@ -1,6 +1,4 @@
-package DynamicLinkage;
-
-import FactoryMethodPattern.Items.Salad;
+package DynamicLinkagePattern;
 
 public class TemporaryMuteProgram extends AbsVMProgram{
 

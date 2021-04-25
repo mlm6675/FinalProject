@@ -1,7 +1,6 @@
-package DynamicLinkage;
+package DynamicLinkagePattern;
 import FactoryMethodPattern.Items.Salad;
 import FactoryMethodPattern.Items.Water;
-import Sources.VendingMachine;
 
 public class SaladWaterBundle extends BundleProgram{
 

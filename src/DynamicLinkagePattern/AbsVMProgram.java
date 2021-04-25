@@ -1,4 +1,4 @@
-package DynamicLinkage;
+package DynamicLinkagePattern;
 import Sources.*;
 
 public abstract class AbsVMProgram implements VMProgram{

@@ -1,8 +1,7 @@
-package DynamicLinkage;
+package DynamicLinkagePattern;
 
 import FactoryMethodPattern.Items.Candy;
 import FactoryMethodPattern.Items.Soda;
-import Sources.VendingMachine;
 
 public class SodaCandyBundle extends BundleProgram {
 

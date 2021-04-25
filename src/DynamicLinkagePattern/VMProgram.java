@@ -1,4 +1,4 @@
-package DynamicLinkage;
+package DynamicLinkagePattern;
 
 import Sources.VendingMachine;
 

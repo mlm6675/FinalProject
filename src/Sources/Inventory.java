@@ -97,12 +97,19 @@ public class Inventory {
         return false;
     }
     public void setMask(Item item, boolean state){
+        if(item instanceof Null_Item)
+            return;
         int index = itemTypes.indexOf(item);
         itemMasks.set(index, state);
     }
     public void resetMasks(boolean state){
-        for(int i=0, size = itemMasks.size(); i != size; i++){
-            itemMasks.set(i,state);
+        for (Item i : itemTypes) {
+            int index = itemTypes.indexOf(i);
+            if(i instanceof Null_Item){
+                itemMasks.set(index, false);
+                continue;
+            }
+            itemMasks.set(index, state);
         }
     }
 }

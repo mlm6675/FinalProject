@@ -1,10 +1,14 @@
-package State;
+package StatePattern;
 import Sources.*;
 
 public class Idle extends State {
     private static final Idle instance = new Idle(VendingMachineImpl.getCurrentInstance()); //?? i dont think this is going to work, probs going to have to make VendingMachineImpl into a singleton as well
+    private boolean isRealMoney;
+    private Idle(VendingMachine vm) {
+        super(vm);
+        isRealMoney = false;
+    }
 
-    private Idle(VendingMachine vm) { super(vm); }
     public static State getInstance(){
         instance.enter();
         return instance;
@@ -12,18 +16,19 @@ public class Idle extends State {
 
     @Override
     public State processEvent(int event) {
-        switch(event)
-        {
-            case digitPressEvent, programmableButtonPressEvent, confirmPressEvent, cancelPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
-                return nextState(event);
-            case moneyEnteredEvent:
-                //going to add some checks in place to ensure the money entered is valid
-                System.out.println("Assuming balance is valid and going to the next state. Will add checks later.");
-                return nextState(event);
-            default:
-                System.out.println("unexpected state encountered. returning to idle state.");
-                return Idle.getInstance();
+        if(event == State.moneyEnteredEvent){
+            isRealMoney = validateMoney();
+            if(isRealMoney)
+                vendingMachine.setBalance(vendingMachine.getCurrentDeposit());
+            vendingMachine.setCurrentDeposit(0);
         }
+        return nextState(event);
+    }
+
+
+    @Override
+    public State processEvent(int event, int key) {
+        return nextState(event);
     }
 
     @Override
@@ -32,16 +37,23 @@ public class Idle extends State {
         switch(event)
         {
             case digitPressEvent, programmableButtonPressEvent, confirmPressEvent, cancelPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
-                return getInstance();
+                return this;
             case moneyEnteredEvent:
-                return ItemSelection.getInstance();
+                return (isRealMoney)?ItemSelection.getInstance():this;
             default:
-                System.out.println("unexpected state encountered. returning to idle state.");
-                return Idle.getInstance();
+                System.err.println("Unexpected state encountered.");
+                return this;
         }
 
     }
 
+    @Override
+    protected void leave() {
+        //resets the state
+        isRealMoney = false;
+    }
+
+    @Override
     protected void enter()
     {
         System.out.println("ENTERED: Idle");

@@ -1,4 +1,4 @@
-package DynamicLinkage;
+package DynamicLinkagePattern;
 
 public abstract class BundleProgram extends AbsVMProgram{
     private String[] items;

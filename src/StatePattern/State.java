@@ -1,4 +1,4 @@
-package State;
+package StatePattern;
 import Sources.*;
 
 public abstract class State {
@@ -12,21 +12,22 @@ public abstract class State {
     public static final int filterPressEvent = 8;
     protected VendingMachine vendingMachine;
 
-
-    State(){}
     State(VendingMachine vendingMachine)
     {
         this.vendingMachine = vendingMachine;
     }
 
     public abstract State processEvent(int event);
+    public abstract State processEvent(int event, int key);
     protected abstract State nextState(int event);
-    protected void enter()
-    {
+    protected void enter() {
 
     }
-    protected void exit()
-    {
+    protected void leave() {
 
+    }
+    protected boolean validateMoney() {
+        double deposit = vendingMachine.getCurrentDeposit();
+        return  (deposit>=0)? true : false;
     }
 }

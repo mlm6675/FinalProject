@@ -1,4 +1,4 @@
-package DynamicLinkage;
+package DynamicLinkagePattern;
 
 public class NullProgram extends AbsVMProgram {
     @Override
