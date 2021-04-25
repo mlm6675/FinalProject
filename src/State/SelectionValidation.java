@@ -17,7 +17,7 @@ public class SelectionValidation extends State{
             case moneyEnteredEvent, digitPressEvent, programmableButtonPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
                 return nextState(event); //basically just ignore
             case confirmPressEvent:
-                vendingMachine.dispense(); //dispense the item
+                //vendingMachine.dispense(); //dispense the item
                 //probably going to have to give change too
                 return nextState(event);
             case cancelPressEvent:

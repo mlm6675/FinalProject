@@ -17,7 +17,7 @@ public class Idle extends State {
                 return nextState(event);
             case moneyEnteredEvent:
                 //going to add some checks in place to ensure the money entered is valid
-                System.out.println("Assuming balance is valid. Will add checks later.");
+                System.out.println("Assuming balance is valid and going to the next state. Will add checks later.");
                 return nextState(event);
             default:
                 System.out.println("unexpected state encountered. returning to idle state.");
