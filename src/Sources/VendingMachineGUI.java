@@ -1,6 +1,15 @@
 package Sources;
 
+import FactoryMethodPattern.Item;
+import FactoryMethodPattern.ItemFactory;
+import FactoryMethodPattern.ItemFactoryImp;
+import FactoryMethodPattern.Items.*;
+import FilterPattern.Filters.EggFilter;
+import FilterPattern.Filters.LactoseFilter;
+import FilterPattern.SourceList;
+
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class VendingMachineGUI {
     private JPanel mainFrame;
@@ -36,6 +45,47 @@ public class VendingMachineGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+        //Factory Pattern Test
+        factoryPatternTest();
+
+        //Filter Pattern Test
+        filterPatternTest();
+    }
+
+    private static void filterPatternTest() {
+        Item[] items = {new Candy(), new Chips(), new Salad(), new Sandwitch(), new Popcorn(), new Soup()};
+        show("Before filtering Lactose and Eggs",items);
+        SourceList sourceList = new SourceList(items);
+        LactoseFilter lactoseFilter = new LactoseFilter(sourceList);
+        EggFilter eggFilter = new EggFilter(lactoseFilter);
+        items = eggFilter.applyFilter();
+        show("After filtering Lactose and Eggs", items);
+    }
+
+    private static void show(String message, Item[] items) {
+        System.out.println(message);
+        for (Item i : items) {
+            System.out.print("\""+i.getName() + "\" ");
+        }
+        System.out.println();
+    }
+
+    private static void factoryPatternTest() {
+        ItemFactory factory = new ItemFactoryImp();
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(factory.getItemByName("Soda"));
+        items.add(factory.getItemByName("Salad"));
+        items.add(factory.getItemByName("Candy"));
+        items.add(factory.getItemByName("Pork"));
+        for (Item i: items) {
+            System.out.print("Name: "+ i.getName() + "\tCost: " + i.getPrice());
+            String[] allergens = i.getAllergenList();
+            for(int x = 0, size = allergens.length; x !=size; x++){
+                System.out.print(allergens[x]+" ");
+            }
+            System.out.println();
+        }
     }
 
     private void createUIComponents() {
