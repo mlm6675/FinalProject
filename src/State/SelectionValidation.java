@@ -5,14 +5,28 @@ public class SelectionValidation extends State{
     private static SelectionValidation instance = new SelectionValidation();
 
     private SelectionValidation(){}
-    private SelectionValidation(VendingMachineImpl vm)
+    private SelectionValidation(VendingMachine vm)
     {
         super(vm);
     }
 
     @Override
     public State processEvent(int event) {
-        return null;
+        switch(event)
+        {
+            case moneyEnteredEvent, digitPressEvent, programmableButtonPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
+                return nextState(event); //basically just ignore
+            case confirmPressEvent:
+                vendingMachine.dispense(); //dispense the item
+                //probably going to have to give change too
+                return nextState(event);
+            case cancelPressEvent:
+                //do nothing and return to item selection
+                return nextState(event);
+            default:
+                System.out.println("unexpected state encountered. returning to idle state.");
+                return Idle.getInstance();
+        }
     }
 
     @Override
@@ -36,5 +50,12 @@ public class SelectionValidation extends State{
     public static State getInstance()
     {
         return instance;
+    }
+
+    protected void enter()
+    {
+        System.out.println("ENTERED: SelectionValidation");
+        System.out.println("Are you ready to make your purchase?");
+        //note: this is going to have to go through the gui and NOT through the console
     }
 }

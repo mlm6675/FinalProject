@@ -18,6 +18,11 @@ public class VendingMachineImpl implements VendingMachine {
         //idk
     }
 
+    public static VendingMachine getCurrentInstance()
+    {
+        return currentInstance;
+    }
+
     public void buttonPress(int event) {
 
     }

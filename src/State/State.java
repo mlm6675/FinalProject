@@ -10,11 +10,11 @@ public abstract class State {
     public final int arrowDownEvent = 6;
     public final int moneyEnteredEvent = 7;
     public final int filterPressEvent = 8;
-    protected VendingMachineImpl vendingMachine;
+    protected VendingMachine vendingMachine;
 
 
     State(){}
-    State(VendingMachineImpl vendingMachine)
+    State(VendingMachine vendingMachine)
     {
         this.vendingMachine = vendingMachine;
     }
@@ -22,6 +22,10 @@ public abstract class State {
     public abstract State processEvent(int event);
     protected abstract State nextState(int event);
     protected void enter()
+    {
+
+    }
+    protected void exit()
     {
 
     }
