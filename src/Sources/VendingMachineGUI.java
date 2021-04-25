@@ -39,9 +39,6 @@ public class VendingMachineGUI {
 
     }
 
-
-    private static void foo(int i, String s) {
-    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("Vending Machine :)");
         frame.setContentPane(new VendingMachineGUI().mainFrame);
@@ -55,7 +52,16 @@ public class VendingMachineGUI {
         //Filter Pattern Test
         filterPatternTest();
 
-        foo(3,"hello");
+        //Testing inventory loading
+        testingInventoryCreation();
+    }
+
+    private static void testingInventoryCreation() {
+        Inventory inv = new Inventory(9);
+        for(int i = 1; i != 10; i++){
+            Item item = inv.getItemNumber(i);
+            System.out.println("Item: \""+ item.getName() + "\" " + "Count: " + inv.getItemQuantity(item) + " Mask: " + inv.getMask(item));
+        }
     }
 
     private static void filterPatternTest() {

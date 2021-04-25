@@ -1,0 +1,9 @@
+Chips, 10
+Candy, 20
+Popcorn, 6
+Juice, 12
+Soda, 12
+Water, 8
+Sandwitch, 6
+Soup, 8
+Salad, 6
