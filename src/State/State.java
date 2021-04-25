@@ -1,5 +1,5 @@
 package State;
-import VendingMachine.*;
+import Sources.*;
 
 public abstract class State {
     public final int digitPressEvent = 1;

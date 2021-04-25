@@ -1,5 +1,5 @@
 package DynamicLinkage;
-import VendingMachine.*;
+import Sources.*;
 
 public abstract class AbsVMProgram implements VMProgram{
     protected VendingMachine machine;

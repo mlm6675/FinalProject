@@ -1,3 +1,5 @@
+package Sources;
+
 import javax.swing.*;
 
 public class VendingMachineGUI {

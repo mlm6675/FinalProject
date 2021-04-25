@@ -1,7 +1,5 @@
 package State;
-import FactoryMethodPattern.Item;
-import FilterPattern.ItemFilter;
-import VendingMachine.*;
+import Sources.*;
 
 public class ItemFiltering extends State {
     private static ItemFiltering instance = new ItemFiltering(); //?? i dont think this is going to work, probs going to have to make VendingMachineImpl into a singleton as well

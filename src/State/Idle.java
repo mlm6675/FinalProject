@@ -1,5 +1,5 @@
 package State;
-import VendingMachine.*;
+import Sources.*;
 
 public class Idle extends State {
     private static Idle instance = new Idle(); //?? i dont think this is going to work, probs going to have to make VendingMachineImpl into a singleton as well

@@ -1,5 +1,5 @@
 package State;
-import VendingMachine.*;
+import Sources.*;
 
 public class SelectionValidation extends State{
     private static SelectionValidation instance = new SelectionValidation();

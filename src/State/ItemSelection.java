@@ -1,6 +1,5 @@
 package State;
-import FilterPattern.ItemFilter;
-import VendingMachine.*;
+import Sources.*;
 
 public class ItemSelection extends State{
     private static ItemSelection instance = new ItemSelection();

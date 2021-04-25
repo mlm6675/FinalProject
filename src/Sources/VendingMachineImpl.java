@@ -1,4 +1,5 @@
-package VendingMachine;
+package Sources;
+import FactoryMethodPattern.Item;
 import State.*;
 import DynamicLinkage.VMProgram;
 
@@ -23,11 +24,11 @@ public class VendingMachineImpl {
     }
 
     public void setSelectedItem(Item item) {
-        this.item = currentSelection;
+        currentSelection = item;
     }
 
     public Inventory getInventory() {
-
+        return null;
     }
 
     public void setBalance(double b) {
