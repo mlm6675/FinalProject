@@ -24,11 +24,12 @@ public abstract class State {
     public abstract State processEvent(int event);
     public abstract State processEvent(int event, int key);
     protected abstract State nextState(int event);
-    protected void enter() {
 
+    protected void enter() {
+        System.out.println("ENTERED: " + this.getClass().getSimpleName());
     }
     protected void leave() {
-
+        System.out.println("LEFT: " + this.getClass().getSimpleName());
     }
     protected boolean validateMoney() {
         double deposit = vendingMachine.getCurrentDeposit();

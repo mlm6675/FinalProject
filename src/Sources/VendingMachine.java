@@ -1,6 +1,7 @@
 package Sources;
+import AdapterPattern.Display;
 import FactoryMethodPattern.*;
-
+import StatePattern.State;
 
 public interface VendingMachine {
     void buttonPress(int special_key);
@@ -15,9 +16,7 @@ public interface VendingMachine {
     void dispense();
     void refund();
     void muteSound(boolean st);
-    StringBuilder getDisplay();
-    void appendToDisplay(char ch);
-
-    void setDisplay(String toString);
-
+    Display getDisplay();
+    void setOutputScreen(Display display);
+    State getCurrentState();
 }

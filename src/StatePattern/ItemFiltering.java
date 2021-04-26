@@ -1,11 +1,11 @@
 package StatePattern;
+import AdapterPattern.Display;
 import FactoryMethodPattern.Item;
 import FilterPattern.Filters.*;
 import FilterPattern.ItemFilter;
 import FilterPattern.SourceList;
 import Sources.*;
 
-import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class ItemFiltering extends State {
 
     public ItemFiltering()
     {
-        currentPage = 0;
+        currentPage = 1;
         filters = new ArrayList<>();
         filters.add(new AbstractMap.SimpleEntry<String, Boolean>("EggFilter", false));
         filters.add(new AbstractMap.SimpleEntry<String, Boolean>("LactoseFilter", false));
@@ -43,7 +43,7 @@ public class ItemFiltering extends State {
                 }
                 break;
             case arrowDownEvent:
-                if(currentPage>0){
+                if(currentPage>1){
                     currentPage--;
                     displayCurrentPage();
                 }
@@ -56,9 +56,9 @@ public class ItemFiltering extends State {
         Inventory inv = vendingMachine.getInventory();
         inv.resetMasks(false);
         ItemFilter sourceList = new SourceList(inv.getAllItems());
-        for (AbstractMap.SimpleEntry entry : filters) {
-            if((Boolean) entry.getValue()){
-                sourceList = wrap((String)entry.getKey(), sourceList);
+        for (AbstractMap.SimpleEntry<String, Boolean> entry : filters) {
+            if(entry.getValue()){
+                sourceList = wrap(entry.getKey(), sourceList);
             }
         }
         Item[] validItems = sourceList.applyFilter();
@@ -68,11 +68,17 @@ public class ItemFiltering extends State {
     }
 
     private void displayCurrentPage() {
-        StringBuilder display = new StringBuilder();
-        display.append("1. " + ((String) filters.get(currentPage*3).getKey()) + "Status: " + (Boolean) filters.get(currentPage*3).getValue());
-        display.append("2. " + ((String) filters.get(currentPage*3+1).getKey()) + "Status: " + (Boolean) filters.get(currentPage*3 + 1).getValue());
-        display.append("3. " + ((String) filters.get(currentPage*3+2).getKey()) + "Status: " + (Boolean) filters.get(currentPage*3 + 2).getValue());
-        vendingMachine.setDisplay(display.toString());
+        Display display = vendingMachine.getDisplay();
+        StringBuilder screen = new StringBuilder();
+        screen.append("Press 1-3 to toggle a filter or use arrows key to scroll.\n");
+        try{
+            screen.append("1. " + ((String) filters.get((currentPage-1)*3).getKey()) + "\tStatus: " + (Boolean) filters.get((currentPage-1)*3).getValue() + '\n');
+            screen.append("2. " + ((String) filters.get((currentPage-1)*3+1).getKey()) + "\tStatus: " + (Boolean) filters.get((currentPage-1)*3 + 1).getValue()+ '\n');
+            screen.append("3. " + ((String) filters.get((currentPage-1)*3+2).getKey()) + "\tStatus: " + (Boolean) filters.get((currentPage-1)*3 + 2).getValue()+ '\n');
+        }catch (IndexOutOfBoundsException ex){
+            //Ignore non-existing elements
+        }
+        display.setDispalyText(screen.toString());
     }
 
     private ItemFilter wrap(String key, ItemFilter sourceList) {
@@ -91,8 +97,14 @@ public class ItemFiltering extends State {
         if(event == State.digitPressEvent){
             switch (key){
                 case 1,2,3:
-                    AbstractMap.SimpleEntry value = filters.get(currentPage*3 + key - 1);
-                    value.setValue(!((Boolean) value.getValue()));
+                    try {
+                        AbstractMap.SimpleEntry<String, Boolean> value = filters.get((currentPage-1)*3 + key - 1);
+                        value.setValue(!value.getValue());
+                    }catch (IndexOutOfBoundsException ex){
+                        //Ignore updates for elements that don't exist
+                    }
+                    displayCurrentPage();
+                    break;
             }
         }
         return nextState(event);
@@ -103,16 +115,23 @@ public class ItemFiltering extends State {
         switch(event)
         {
             case confirmPressEvent, cancelPressEvent:
-                return super.ItemFiltering;
+                vendingMachine.getCurrentState().leave();
+                State.ItemSelection.enter();
+                return State.ItemSelection;
             default:
                 return this;
         }
     }
 
+    @Override
+    protected void leave() {
+        super.leave();
+    }
+
+    @Override
     protected void enter()
     {
-        System.out.println("ENTERED: ItemFiltering");
-        System.out.println("Select button 1-5 corresponding to your dietary restriction:\nwill add this later");
-        //note: this is going to have to go through the gui and NOT through the console
+        super.enter();
+        displayCurrentPage();
     }
 }

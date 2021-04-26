@@ -1,5 +1,5 @@
 package StatePattern;
-import Sources.*;
+import AdapterPattern.Display;
 
 public class Idle extends State {
     private boolean isRealMoney;
@@ -32,9 +32,14 @@ public class Idle extends State {
             case digitPressEvent, programmableButtonPressEvent, confirmPressEvent, cancelPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
                 return this;
             case moneyEnteredEvent:
-                return (isRealMoney)?super.ItemSelection:this;
+                if(isRealMoney){
+                    vendingMachine.getCurrentState().leave();
+                    State.ItemSelection.enter();
+                    return State.ItemSelection;
+                }else{
+                    return this;
+                }
             default:
-                System.err.println("Unexpected state encountered.");
                 return this;
         }
 
@@ -43,14 +48,18 @@ public class Idle extends State {
     @Override
     protected void leave() {
         //resets the state
+        super.leave();
         isRealMoney = false;
     }
 
     @Override
     protected void enter()
     {
-        System.out.println("ENTERED: Idle");
-        System.out.println("Hello! Please insert money to start.");
-        //note: this is going to have to go through the gui and NOT through the console
+        super.enter();
+        Display display = vendingMachine.getDisplay();
+        StringBuilder msg = new StringBuilder();
+        msg.append("Welcome to the Generic Vending Machine :3\n");
+        msg.append("Please, enter money to activate the machine.");
+        display.setDispalyText(msg.toString());
     }
 }

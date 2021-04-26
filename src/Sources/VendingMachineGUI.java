@@ -1,5 +1,6 @@
 package Sources;
 
+import AdapterPattern.JTextAreaAdapter;
 import FactoryMethodPattern.Item;
 import FactoryMethodPattern.ItemFactory;
 import FactoryMethodPattern.ItemFactoryImp;
@@ -46,6 +47,7 @@ public class VendingMachineGUI {
         frame.pack();
         frame.setVisible(true);
         this.vm = vm;
+        this.vm.setOutputScreen(new JTextAreaAdapter(screen));
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,4 +1,5 @@
 package StatePattern;
+import AdapterPattern.Display;
 import FactoryMethodPattern.Item;
 import FactoryMethodPattern.Items.Null_Item;
 import Sources.*;
@@ -25,8 +26,10 @@ public class ItemSelection extends State{
                 if(isSelectionValid){
                     vendingMachine.setSelectedItem(selectedItem);
                 }else{
-                    int lenght = vendingMachine.getDisplay().length();
-                    vendingMachine.getDisplay().delete(0, lenght);
+                    StringBuilder msg = new StringBuilder();
+                    msg.append("Please, select an item.\n");
+                    msg.append("Your selection > ");
+                    vendingMachine.getDisplay().setDispalyText(msg.toString());
                 }
                 break;
         }
@@ -44,45 +47,65 @@ public class ItemSelection extends State{
     }
 
     private Item getItemFromInventory() {
-        if(vendingMachine.getDisplay().length()==0)
+        Display display = vendingMachine.getDisplay();
+        String text = display.getDisplayText();
+        text = text.substring(text.indexOf('>') + 1);
+        text = text.trim();
+        if(text.isBlank())
             return new Null_Item();
-        int index = Integer.parseInt(vendingMachine.getDisplay().toString());
+        int index = Integer.parseInt(text);
         return vendingMachine.getInventory().getItemNumber(index);
     }
 
     @Override
     public State processEvent(int event, int key) {
         if(event == State.digitPressEvent){
-            StringBuilder display = vendingMachine.getDisplay();
-            display.append(key);
+            Display screen = vendingMachine.getDisplay();
+            screen.setDispalyText(screen.getDisplayText() + key);
         }
         return nextState(event);
     }
 
     @Override
     protected State nextState(int event) {
+        State current = vendingMachine.getCurrentState();
         switch(event)
         {
             case cancelPressEvent:
-                return super.Idle;
+                current.leave();
+                State.Idle.enter();
+                return State.Idle;
             case filterPressEvent:
-                return super.ItemFiltering;
+                current.leave();
+                State.ItemFiltering.enter();
+                return State.ItemFiltering;
             case confirmPressEvent:
-                return (isSelectionValid)?super.SelectionValidation:this;
+                if(isSelectionValid){
+                    current.leave();
+                    State.SelectionValidation.enter();
+                    return State.SelectionValidation;
+                }else{
+                    return this;
+                }
             default: //For all other events, you stay in this state
                 return this;
         }
     }
 
+    @Override
     protected void enter()
     {
-        System.out.println("ENTERED: ItemSelection");
-        System.out.println("Please make a selection.");
-        //note: this is going to have to go through the gui and NOT through the console
+        super.enter();
+        Display display = vendingMachine.getDisplay();
+        StringBuilder msg = new StringBuilder();
+        msg.append("Please, select an item.\n");
+        msg.append("Your selection > ");
+        display.setDispalyText(msg.toString());
     }
 
     @Override
     protected void leave() {
+        super.leave();
         isSelectionValid = false;
     }
 }

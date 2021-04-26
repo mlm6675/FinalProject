@@ -1,6 +1,6 @@
 package StatePattern;
+import AdapterPattern.Display;
 import FactoryMethodPattern.Items.Null_Item;
-import Sources.*;
 
 public class SelectionValidation extends State{
 
@@ -27,24 +27,38 @@ public class SelectionValidation extends State{
 
     @Override
     protected State nextState(int event) {
+        State current = vendingMachine.getCurrentState();
         switch(event)
         {
             case confirmPressEvent:
-                return super.Idle;
+                current.leave();
+                State.Idle.enter();
+                return State.Idle;
             case cancelPressEvent:
-                return super.ItemSelection;
+                current.leave();
+                State.ItemSelection.enter();
+                return State.ItemSelection;
             default:
                 return this;
         }
     }
 
+    @Override
+    protected void leave() {
+        super.leave();
+    }
 
+    @Override
     protected void enter()
     {
-        System.out.println("ENTERED: SelectionValidation");
-        System.out.println("Are you ready to make your purchase?");
-        //note: this is going to have to go through the gui and NOT through the console
-        int lenght = vendingMachine.getDisplay().length();
-        vendingMachine.getDisplay().delete(0, lenght);
+        super.enter();
+        Display screen = vendingMachine.getDisplay();
+        StringBuilder msg = new StringBuilder();
+        msg.append("Confirm your purchase\\Cancel for refund\n");
+        msg.append(String.format("Balance: $%.2f", + vendingMachine.getBalance()));
+        msg.append(String.format("\tItem cost: $%.2f", vendingMachine.getSelectedItem().getPrice()));
+        msg.append('\n');
+        msg.append("Do you want to buy \""+ vendingMachine.getSelectedItem().getName() + "\"?");
+        screen.setDispalyText(msg.toString());
     }
 }

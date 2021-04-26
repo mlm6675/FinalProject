@@ -1,4 +1,5 @@
 package Sources;
+import AdapterPattern.Display;
 import DynamicLinkagePattern.*;
 import FactoryMethodPattern.Item;
 import FactoryMethodPattern.Items.Null_Item;
@@ -13,8 +14,7 @@ public class VendingMachineImpl implements VendingMachine {
     private Item currentSelection;
     private double balance, currentDeposit;
     private boolean isSilent;
-
-    private StringBuilder display; //TODO: replace by GUI textArea
+    private Display screen;
 
     VendingMachineImpl(int size) {
         //TODO: implement programmable button initialization
@@ -22,13 +22,25 @@ public class VendingMachineImpl implements VendingMachine {
         programmableButtons[1] = new NullProgram();
         programmableButtons[2] = new NullProgram();
 
-        display = new StringBuilder();
         inventory = new Inventory(size);
         currentState = State.setEnvironment(this);
         currentSelection = new Null_Item();
         balance = 0;
         currentDeposit = 0;
         isSilent = false;
+    }
+
+    public void setOutputScreen(Display component){
+        screen = component;
+        StringBuilder msg = new StringBuilder();
+        msg.append("Welcome to the Generic Vending Machine :3\n");
+        msg.append("Please, enter money to activate the machine.");
+        screen.setDispalyText(msg.toString());
+    }
+
+    @Override
+    public State getCurrentState() {
+        return currentState;
     }
 
     public void buttonPress(int special_key) {
@@ -81,7 +93,7 @@ public class VendingMachineImpl implements VendingMachine {
         if(balance == 0){
             message = "There's nothing to refund. You've spent all of your money.";
         }else{
-            message = String.format( "The amount refunded > $%.2", balance);
+            message = String.format( "The amount refunded > $%.2f", balance);
         }
         JOptionPane.showMessageDialog(null, message);
     }
@@ -91,20 +103,8 @@ public class VendingMachineImpl implements VendingMachine {
     }
 
     @Override
-    public StringBuilder getDisplay() {
-        return display;
-    }
-
-    @Override
-    public void appendToDisplay(char ch) {
-        display.append(ch);
-    }
-
-    @Override
-    public void setDisplay(String toString) {
-        System.out.println("----------------");
-        System.out.println(toString);
-        System.out.println("----------------");
+    public Display getDisplay() {
+        return screen;
     }
 
 }
