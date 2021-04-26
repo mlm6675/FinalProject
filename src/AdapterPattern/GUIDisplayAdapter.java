@@ -2,11 +2,13 @@ package AdapterPattern;
 
 import javax.swing.*;
 
-public class JTextAreaAdapter implements Display{
+public class GUIDisplayAdapter implements Display{
     private JTextArea component;
+    private JButton[] buttons;
 
-    public JTextAreaAdapter(JTextArea component){
+    public GUIDisplayAdapter(JTextArea component, JButton... buttons){
         this.component = component;
+        this.buttons = buttons;
     }
 
 
@@ -19,5 +21,10 @@ public class JTextAreaAdapter implements Display{
     @Override
     public String getDisplayText() {
         return component.getText();
+    }
+
+    @Override
+    public JButton[] getButtons() {
+        return buttons;
     }
 }

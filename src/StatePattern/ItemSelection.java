@@ -111,11 +111,22 @@ public class ItemSelection extends State{
         msg.append("Please, select an item.\n");
         msg.append("Your selection > ");
         display.setDispalyText(msg.toString());
+
+        Inventory inv =vendingMachine.getInventory();
+        JButton[] buttons = display.getButtons();
+        for (int i = 0, size = inv.getItemCount(); i!= size; i++) {
+            buttons[i].setEnabled(inv.getMask(inv.getItemNumber(i+1)));
+        }
     }
 
     @Override
     protected void leave() {
         super.leave();
         isSelectionValid = false;
+
+        JButton[] buttons = vendingMachine.getDisplay().getButtons();
+        for (JButton b : buttons) {
+            b.setEnabled(true);
+        }
     }
 }

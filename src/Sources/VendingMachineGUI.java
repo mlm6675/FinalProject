@@ -1,6 +1,6 @@
 package Sources;
 
-import AdapterPattern.JTextAreaAdapter;
+import AdapterPattern.GUIDisplayAdapter;
 import FactoryMethodPattern.Item;
 import FactoryMethodPattern.ItemFactory;
 import FactoryMethodPattern.ItemFactoryImp;
@@ -47,7 +47,8 @@ public class VendingMachineGUI {
         frame.pack();
         frame.setVisible(true);
         this.vm = vm;
-        this.vm.setOutputScreen(new JTextAreaAdapter(screen));
+        JButton[] buttons = { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9};
+        this.vm.setOutputScreen(new GUIDisplayAdapter(screen, buttons));
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
