@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class Idle extends State {
     private boolean isRealMoney;
+
     public Idle() {
         isRealMoney = false;
     }

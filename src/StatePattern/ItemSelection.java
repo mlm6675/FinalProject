@@ -9,6 +9,10 @@ import javax.swing.*;
 public class ItemSelection extends State{
     private boolean isSelectionValid;
 
+    public ItemSelection(){
+        isSelectionValid = false;
+    }
+
     @Override
     public State processEvent(int event) {
         switch(event)

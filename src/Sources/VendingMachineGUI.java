@@ -9,7 +9,6 @@ import FilterPattern.Filters.EggFilter;
 import FilterPattern.Filters.LactoseFilter;
 import FilterPattern.SourceList;
 import StatePattern.State;
-import TwoPhaseTermination.MyJFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +41,7 @@ public class VendingMachineGUI {
     private JTextArea screen;
     private JButton enterMoneyBtn;
 
-    VendingMachineGUI(VendingMachine vm) {
+    public VendingMachineGUI(VendingMachine vm) {
         this.vm = vm;
         JButton[] buttons = { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9};
         this.vm.setOutputScreen(new GUIDisplayAdapter(screen, buttons));

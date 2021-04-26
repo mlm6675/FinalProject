@@ -19,7 +19,5 @@ public interface VendingMachine {
     Display getDisplay();
     void setOutputScreen(Display display);
     State getCurrentState();
-
     void runProgram(int key);
-
 }

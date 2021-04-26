@@ -16,7 +16,7 @@ public class VendingMachineImpl implements VendingMachine {
     private boolean isSilent;
     private Display screen;
 
-    VendingMachineImpl(int size) {
+    public VendingMachineImpl(int size) {
         programmableButtons[0] = new SaladWaterBundle(this);
         programmableButtons[1] = new SodaCandyBundle(this);
         programmableButtons[2] = new TemporaryMuteProgram(this);

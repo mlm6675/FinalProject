@@ -35,6 +35,7 @@ public abstract class State {
         double deposit = vendingMachine.getCurrentDeposit();
         return  (deposit>=0)? true : false;
     }
+
     public static State setEnvironment(VendingMachine vm){
         vendingMachine = vm;
         Idle = new Idle();
