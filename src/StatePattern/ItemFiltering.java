@@ -126,6 +126,8 @@ public class ItemFiltering extends State {
     @Override
     protected void leave() {
         super.leave();
+        currentPage = 1;
+        filters.forEach(entry -> entry.setValue(false));
     }
 
     @Override
