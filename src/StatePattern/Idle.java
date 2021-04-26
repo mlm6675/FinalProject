@@ -1,5 +1,6 @@
 package StatePattern;
 import AdapterPattern.Display;
+import Sources.Inventory;
 
 import javax.swing.*;
 
@@ -66,5 +67,7 @@ public class Idle extends State {
         msg.append("Welcome to the Generic Vending Machine :3\n");
         msg.append("Please, enter money to activate the machine.");
         display.setDispalyText(msg.toString());
+        Inventory inv = vendingMachine.getInventory();
+        inv.resetMasks(true);
     }
 }

@@ -3,7 +3,6 @@ package TwoPhaseTermination;
 import Sources.VendingMachine;
 import Sources.VendingMachineGUI;
 import Sources.VendingMachineImpl;
-import TwoPhaseTermination.MyJFrame;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;

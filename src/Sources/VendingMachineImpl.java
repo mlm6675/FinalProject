@@ -100,6 +100,7 @@ public class VendingMachineImpl implements VendingMachine {
             message = String.format( "The amount refunded > $%.2f", balance);
         }
         JOptionPane.showMessageDialog(null, message);
+        balance = 0;
     }
     public void toggleMute()
     {
