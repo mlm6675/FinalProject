@@ -9,8 +9,10 @@ import FilterPattern.Filters.EggFilter;
 import FilterPattern.Filters.LactoseFilter;
 import FilterPattern.SourceList;
 import StatePattern.State;
+import TwoPhaseTermination.MyJFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -41,11 +43,6 @@ public class VendingMachineGUI {
     private JButton enterMoneyBtn;
 
     VendingMachineGUI(VendingMachine vm) {
-        JFrame frame = new JFrame("Vending Machine :)");
-        frame.setContentPane(mainFrame);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
         this.vm = vm;
         JButton[] buttons = { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9};
         this.vm.setOutputScreen(new GUIDisplayAdapter(screen, buttons));
@@ -219,5 +216,9 @@ public class VendingMachineGUI {
 
     private void createUIComponents() {
         machineWindow = new JLabel(new ImageIcon("vendingWindow.png"));
+    }
+
+    public Container getContentPane() {
+        return mainFrame;
     }
 }
