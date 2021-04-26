@@ -112,4 +112,32 @@ public class Inventory {
             itemMasks.set(index, state);
         }
     }
+
+    public boolean containsAll(String[] items) {
+        for (String name : items) {
+            boolean present = false;
+            for (Item i : itemTypes) {
+                if(i.getClass().getSimpleName().equals(name)){
+                    present = true;
+                    break;
+                }
+            }
+            if(!present)
+                return false;
+        }
+        return true;
+    }
+
+    public Item[] getItemsByName(String[] items) {
+        ArrayList<Item> result = new ArrayList<>();
+        for (String name : items) {
+            for (Item i : itemTypes) {
+                if(i.getClass().getSimpleName().equals(name)){
+                    result.add(i);
+                    break;
+                }
+            }
+        }
+        return result.toArray(new Item[result.size()]);
+    }
 }

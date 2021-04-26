@@ -1,21 +1,22 @@
 package DynamicLinkagePattern;
 
+import Sources.VendingMachine;
+
 public class TemporaryMuteProgram extends AbsVMProgram{
 
+    public TemporaryMuteProgram(VendingMachine vm){
+        setEnvironment(vm);
+    }
     @Override
     public void run() {
-        machine.muteSound(true); //possibly come back to this.
-        //are we going to wait for 1 minute and then set this back to false?
-        //or are we just going to have it so if someone presses the mute button,
-        //and the program is already muted, we unmute?
-        //not a big deal, but something to keep in mind.
-
-        System.out.println("muted");
+        if(machine!=null){
+            machine.toggleMute();
+        }
     }
 
     @Override
     public boolean isCompatible() {
-        return false;
+        return true;
     }
 
 }

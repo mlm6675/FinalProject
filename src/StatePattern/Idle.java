@@ -1,6 +1,8 @@
 package StatePattern;
 import AdapterPattern.Display;
 
+import javax.swing.*;
+
 public class Idle extends State {
     private boolean isRealMoney;
     public Idle() {
@@ -13,6 +15,8 @@ public class Idle extends State {
             isRealMoney = validateMoney();
             if(isRealMoney)
                 vendingMachine.setBalance(vendingMachine.getCurrentDeposit());
+            else
+                JOptionPane.showMessageDialog(null, "The money you've entered is fake.");
             vendingMachine.setCurrentDeposit(0);
         }
         return nextState(event);

@@ -15,8 +15,11 @@ public interface VendingMachine {
     double getCurrentDeposit();
     void dispense();
     void refund();
-    void muteSound(boolean st);
+    void toggleMute();
     Display getDisplay();
     void setOutputScreen(Display display);
     State getCurrentState();
+
+    void runProgram(int key);
+
 }

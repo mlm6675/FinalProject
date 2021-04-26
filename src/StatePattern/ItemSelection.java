@@ -4,6 +4,8 @@ import FactoryMethodPattern.Item;
 import FactoryMethodPattern.Items.Null_Item;
 import Sources.*;
 
+import javax.swing.*;
+
 public class ItemSelection extends State{
     private boolean isSelectionValid;
 
@@ -15,6 +17,8 @@ public class ItemSelection extends State{
                 boolean isRealMoney = validateMoney();
                 if(isRealMoney)
                     vendingMachine.setBalance(vendingMachine.getBalance() + vendingMachine.getCurrentDeposit());
+                else
+                    JOptionPane.showMessageDialog(null, "The money you've entered is fake.");
                 vendingMachine.setCurrentDeposit(0);
                 break;
             case cancelPressEvent:
@@ -26,6 +30,7 @@ public class ItemSelection extends State{
                 if(isSelectionValid){
                     vendingMachine.setSelectedItem(selectedItem);
                 }else{
+                    JOptionPane.showMessageDialog(null, "This item is unavailable.");
                     StringBuilder msg = new StringBuilder();
                     msg.append("Please, select an item.\n");
                     msg.append("Your selection > ");
@@ -59,9 +64,14 @@ public class ItemSelection extends State{
 
     @Override
     public State processEvent(int event, int key) {
+        Display screen = vendingMachine.getDisplay();
         if(event == State.digitPressEvent){
-            Display screen = vendingMachine.getDisplay();
             screen.setDispalyText(screen.getDisplayText() + key);
+        }
+        if(event == State.programmableButtonPressEvent){
+            screen.setDispalyText("Running external program #" + key);
+            vendingMachine.runProgram(key);
+            enter();
         }
         return nextState(event);
     }

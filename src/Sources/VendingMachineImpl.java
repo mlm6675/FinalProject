@@ -17,10 +17,9 @@ public class VendingMachineImpl implements VendingMachine {
     private Display screen;
 
     VendingMachineImpl(int size) {
-        //TODO: implement programmable button initialization
-        programmableButtons[0] = new NullProgram();
-        programmableButtons[1] = new NullProgram();
-        programmableButtons[2] = new NullProgram();
+        programmableButtons[0] = new SaladWaterBundle(this);
+        programmableButtons[1] = new SodaCandyBundle(this);
+        programmableButtons[2] = new TemporaryMuteProgram(this);
 
         inventory = new Inventory(size);
         currentState = State.setEnvironment(this);
@@ -41,6 +40,11 @@ public class VendingMachineImpl implements VendingMachine {
     @Override
     public State getCurrentState() {
         return currentState;
+    }
+
+    @Override
+    public void runProgram(int key) {
+        programmableButtons[key-1].run();
     }
 
     public void buttonPress(int special_key) {
@@ -97,9 +101,14 @@ public class VendingMachineImpl implements VendingMachine {
         }
         JOptionPane.showMessageDialog(null, message);
     }
-    public void muteSound(boolean st)
+    public void toggleMute()
     {
-        isSilent = st;
+        isSilent = !isSilent;
+        if(isSilent){
+            JOptionPane.showMessageDialog(null, "Machine is muted.");
+        }else{
+            JOptionPane.showMessageDialog(null, "Machine is unmuted.");
+        }
     }
 
     @Override

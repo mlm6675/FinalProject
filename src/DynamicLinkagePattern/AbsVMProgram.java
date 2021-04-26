@@ -10,6 +10,4 @@ public abstract class AbsVMProgram implements VMProgram{
     }
 
     public abstract void run();
-
-
 }
