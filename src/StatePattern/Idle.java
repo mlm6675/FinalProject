@@ -2,16 +2,9 @@ package StatePattern;
 import Sources.*;
 
 public class Idle extends State {
-    private static final Idle instance = new Idle(VendingMachineImpl.getCurrentInstance()); //?? i dont think this is going to work, probs going to have to make VendingMachineImpl into a singleton as well
     private boolean isRealMoney;
-    private Idle(VendingMachine vm) {
-        super(vm);
+    public Idle() {
         isRealMoney = false;
-    }
-
-    public static State getInstance(){
-        instance.enter();
-        return instance;
     }
 
     @Override
@@ -39,7 +32,7 @@ public class Idle extends State {
             case digitPressEvent, programmableButtonPressEvent, confirmPressEvent, cancelPressEvent, arrowUpEvent, arrowDownEvent, filterPressEvent:
                 return this;
             case moneyEnteredEvent:
-                return (isRealMoney)?ItemSelection.getInstance():this;
+                return (isRealMoney)?super.ItemSelection:this;
             default:
                 System.err.println("Unexpected state encountered.");
                 return this;

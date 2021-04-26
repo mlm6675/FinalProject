@@ -13,7 +13,6 @@ public class VendingMachineImpl implements VendingMachine {
     private Item currentSelection;
     private double balance, currentDeposit;
     private boolean isSilent;
-    private static VendingMachineImpl currentInstance = new VendingMachineImpl(9); //*****************
 
     private StringBuilder display; //TODO: replace by GUI textArea
 
@@ -25,16 +24,11 @@ public class VendingMachineImpl implements VendingMachine {
 
         display = new StringBuilder();
         inventory = new Inventory(size);
-        currentState = Idle.getInstance();
+        currentState = State.setEnvironment(this);
         currentSelection = new Null_Item();
         balance = 0;
         currentDeposit = 0;
         isSilent = false;
-    }
-
-    public static VendingMachine getCurrentInstance()
-    {
-        return currentInstance;
     }
 
     public void buttonPress(int special_key) {
@@ -111,50 +105,6 @@ public class VendingMachineImpl implements VendingMachine {
         System.out.println("----------------");
         System.out.println(toString);
         System.out.println("----------------");
-    }
-
-    public static void main(String[] args) {
-        //dynamic linkage testing!!
-        //let's just pretend we already linked the gui buttons as needed
-
-        System.out.println("SaladWaterBundle test");
-        AbsVMProgram program = new SaladWaterBundle();
-        program.setEnvironment(currentInstance);
-        program.run();
-
-        System.out.println("\nSodaCandyBundle test");
-        program = new SodaCandyBundle();
-        program.setEnvironment(currentInstance);
-        program.run();
-
-        System.out.println("\nTemporaryMuteProgram test");
-        program = new TemporaryMuteProgram();
-        program.setEnvironment(currentInstance);
-        program.run();
-
-
-        System.out.println("\nNullProgram test\n\n\n\n\n");
-        program = new NullProgram();
-        program.setEnvironment(currentInstance);
-        program.run();
-
-        //notes:
-        //seems to work, but i think i'm supposed to be doing the "class forname" thing
-        //would not be difficult to implement a factory for this but i'm not sure if it's necessary
-        //either way, we have the external programs controlling this implementation of the vending machine
-        //
-        System.out.println("STATE TESTING: \n");
-
-        currentInstance.currentState = Idle.getInstance();
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.moneyEnteredEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.confirmPressEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.confirmPressEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.moneyEnteredEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.filterPressEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.digitPressEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.cancelPressEvent);
-        currentInstance.currentState = currentInstance.currentState.processEvent(State.cancelPressEvent);
-
     }
 
 }

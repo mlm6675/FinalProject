@@ -4,10 +4,7 @@ import FactoryMethodPattern.Items.Null_Item;
 import Sources.*;
 
 public class ItemSelection extends State{
-    private static ItemSelection instance = new ItemSelection(VendingMachineImpl.getCurrentInstance());
     private boolean isSelectionValid;
-
-    private ItemSelection(VendingMachine vm) { super(vm); }
 
     @Override
     public State processEvent(int event) {
@@ -67,20 +64,14 @@ public class ItemSelection extends State{
         switch(event)
         {
             case cancelPressEvent:
-                return Idle.getInstance();
+                return super.Idle;
             case filterPressEvent:
-                return ItemFiltering.getInstance();
+                return super.ItemFiltering;
             case confirmPressEvent:
-                return (isSelectionValid)?SelectionValidation.getInstance():this;
+                return (isSelectionValid)?super.SelectionValidation:this;
             default: //For all other events, you stay in this state
                 return this;
         }
-    }
-
-    public static State getInstance()
-    {
-        instance.enter();
-        return instance;
     }
 
     protected void enter()

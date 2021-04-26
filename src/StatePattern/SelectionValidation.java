@@ -3,12 +3,6 @@ import FactoryMethodPattern.Items.Null_Item;
 import Sources.*;
 
 public class SelectionValidation extends State{
-    private static SelectionValidation instance = new SelectionValidation(VendingMachineImpl.getCurrentInstance());
-
-    private SelectionValidation(VendingMachine vm)
-    {
-        super(vm);
-    }
 
     @Override
     public State processEvent(int event) {
@@ -36,19 +30,14 @@ public class SelectionValidation extends State{
         switch(event)
         {
             case confirmPressEvent:
-                return Idle.getInstance();
+                return super.Idle;
             case cancelPressEvent:
-                return ItemSelection.getInstance();
+                return super.ItemSelection;
             default:
                 return this;
         }
     }
 
-    public static State getInstance()
-    {
-        instance.enter();
-        return instance;
-    }
 
     protected void enter()
     {

@@ -2,6 +2,7 @@ package StatePattern;
 import Sources.*;
 
 public abstract class State {
+    //Events
     public static final int digitPressEvent = 1;
     public static final int programmableButtonPressEvent = 2;
     public static final int confirmPressEvent = 3;
@@ -10,12 +11,15 @@ public abstract class State {
     public static final int arrowDownEvent = 6;
     public static final int moneyEnteredEvent = 7;
     public static final int filterPressEvent = 8;
-    protected VendingMachine vendingMachine;
 
-    State(VendingMachine vendingMachine)
-    {
-        this.vendingMachine = vendingMachine;
-    }
+    //States
+    protected static State Idle;
+    protected static State ItemSelection;
+    protected static State ItemFiltering;
+    protected static State SelectionValidation;
+
+    //VM reference
+    protected static VendingMachine vendingMachine;
 
     public abstract State processEvent(int event);
     public abstract State processEvent(int event, int key);
@@ -29,5 +33,13 @@ public abstract class State {
     protected boolean validateMoney() {
         double deposit = vendingMachine.getCurrentDeposit();
         return  (deposit>=0)? true : false;
+    }
+    public static State setEnvironment(VendingMachine vm){
+        vendingMachine = vm;
+        Idle = new Idle();
+        ItemSelection = new ItemSelection();
+        ItemFiltering = new ItemFiltering();
+        SelectionValidation = new SelectionValidation();
+        return Idle;
     }
 }

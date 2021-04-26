@@ -10,15 +10,14 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 
 public class ItemFiltering extends State {
-    private static ItemFiltering instance = new ItemFiltering(VendingMachineImpl.getCurrentInstance());
     private ArrayList<AbstractMap.SimpleEntry<String, Boolean>> filters;
     private int currentPage, numberOfPages;
     private static final int ItemsPerPage = 3;
 
-    private ItemFiltering(VendingMachine vm)
+    public ItemFiltering()
     {
-        super(vm);
         currentPage = 0;
+        filters = new ArrayList<>();
         filters.add(new AbstractMap.SimpleEntry<String, Boolean>("EggFilter", false));
         filters.add(new AbstractMap.SimpleEntry<String, Boolean>("LactoseFilter", false));
         filters.add(new AbstractMap.SimpleEntry<String, Boolean>("NutFilter", false));
@@ -104,17 +103,12 @@ public class ItemFiltering extends State {
         switch(event)
         {
             case confirmPressEvent, cancelPressEvent:
-                return ItemSelection.getInstance();
+                return super.ItemFiltering;
             default:
                 return this;
         }
     }
 
-    public static State getInstance()
-    {
-        instance.enter();
-        return instance;
-    }
     protected void enter()
     {
         System.out.println("ENTERED: ItemFiltering");

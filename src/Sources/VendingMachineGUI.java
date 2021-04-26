@@ -7,11 +7,15 @@ import FactoryMethodPattern.Items.*;
 import FilterPattern.Filters.EggFilter;
 import FilterPattern.Filters.LactoseFilter;
 import FilterPattern.SourceList;
+import StatePattern.State;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VendingMachineGUI {
+    private VendingMachine vm;
     private JPanel mainFrame;
     private JButton allergyBtn;
     private JButton upBtn;
@@ -33,27 +37,138 @@ public class VendingMachineGUI {
     private JButton reprogrammableBtn1;
     private JLabel machineWindow;
     private JTextArea screen;
+    private JButton enterMoneyBtn;
 
-    VendingMachineGUI()
-    {
-
-    }
-
-    public static void main(String[] args) {
+    VendingMachineGUI(VendingMachine vm) {
         JFrame frame = new JFrame("Vending Machine :)");
-        frame.setContentPane(new VendingMachineGUI().mainFrame);
+        frame.setContentPane(mainFrame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-        //Factory Pattern Test
-        factoryPatternTest();
-
-        //Filter Pattern Test
-        filterPatternTest();
-
-        //Testing inventory loading
-        testingInventoryCreation();
+        this.vm = vm;
+        btn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 1);
+            }
+        });
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 2);
+            }
+        });
+        btn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 3);
+            }
+        });
+        btn4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 4);
+            }
+        });
+        btn5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 5);
+            }
+        });
+        btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 6);
+            }
+        });
+        btn7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 7);
+            }
+        });
+        btn8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 8);
+            }
+        });
+        btn9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 9);
+            }
+        });
+        btn0.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.digitPressEvent, 0);
+            }
+        });
+        acceptBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.confirmPressEvent);
+            }
+        });
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.cancelPressEvent);
+            }
+        });
+        upBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.arrowUpEvent);
+            }
+        });
+        downBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.arrowDownEvent);
+            }
+        });
+        allergyBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.filterPressEvent);
+            }
+        });
+        reprogrammableBtn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.programmableButtonPressEvent, 1);
+            }
+        });
+        reprogrammableBtn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.programmableButtonPressEvent, 2);
+            }
+        });
+        reprogrammableBtn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vm.buttonPress(State.programmableButtonPressEvent, 3);
+            }
+        });
+        enterMoneyBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = JOptionPane.showInputDialog("Amount of money entered (negative values for fake money): ");
+                try{
+                    double amount = Double.parseDouble(input);
+                    if(!Double.isNaN(amount)){
+                        vm.setCurrentDeposit(amount);
+                        vm.buttonPress(State.moneyEnteredEvent);
+                    }
+                }catch (NumberFormatException ex){
+                    //ignore input
+                }
+            }
+        });
     }
 
     private static void testingInventoryCreation() {
